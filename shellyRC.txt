@@ -1,0 +1,1 @@
+plugin "my_plugin_core", "my_plugin_user";

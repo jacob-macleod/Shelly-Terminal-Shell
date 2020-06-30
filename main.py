@@ -2,15 +2,30 @@
 import os, sys, tty, termcolor
 
 def find_plugin_name () :
-    print ("Finding plugin name")
+    with open("ShellyRC.txt") as rc:
+        for line in rc:
+            print (line)
 
-from highlighting_placeholder import dunno_name
+def write_to_placeholder_files (core_file_location, user_file_location) :
+    with open(core_file_location) as f:
+        with open("core_placeholder.py", "w") as f1:
+            for line in f:
+                f1.write(line)
+
+    with open(user_file_location) as f:
+        with open("user_placeholder.py", "w") as f1:
+            for line in f:
+                f1.write(line)
+
+write_to_placeholder_files("my_plugin_core.py", "my_plugin_user.py")
+
+from core_placeholder import dunno_name
+from user_placeholder import dunno_name2
 
 # I can read the placeholder and at the start write code from plugin file to placeholder file
 
 index = 0
 input = ""
-
 
 
 def command_line():
@@ -54,7 +69,8 @@ def command_line():
             # Print current input-string
             sys.stdout.write(u"\u001b[1000D") # Move all the way left
             sys.stdout.write(u"\u001b[0K")    # Clear the line
-            sys.stdout.write(dunno_name(input))
+            output = dunno_name(input) + dunno_name2()
+            sys.stdout.write(output)
             sys.stdout.write(u"\u001b[1000D") # Move all the way left again
 
             if index > 0:
