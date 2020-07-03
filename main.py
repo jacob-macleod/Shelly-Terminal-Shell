@@ -23,8 +23,8 @@ def write_to_placeholder_files (core_file_location, user_file_location) :
 
 write_to_placeholder_files("my_plugin_core.py", "my_plugin_user.py")
 
-from core_placeholder import dunno_name2
-from user_placeholder import dunno_name
+from core_placeholder import core
+from user_placeholder import user
 
 # I can read the placeholder and at the start write code from plugin file to placeholder file
 
@@ -73,7 +73,7 @@ def command_line():
             # Print current input-string
             sys.stdout.write(u"\u001b[1000D") # Move all the way left
             sys.stdout.write(u"\u001b[0K")    # Clear the line
-            output = dunno_name2() + dunno_name(input)
+            output = core() + user(input)
             sys.stdout.write(output)
             sys.stdout.write(u"\u001b[1000C") # Move all the way left again
 

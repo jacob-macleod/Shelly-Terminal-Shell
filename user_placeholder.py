@@ -1,2 +1,2 @@
-def dunno_name (string) :
+def user (string) :
     return string
