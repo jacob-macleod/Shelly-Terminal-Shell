@@ -1,2 +1,2 @@
-def dunno_name2 () :
-    return ">>> "
+def dunno_name (string) :
+    return string
