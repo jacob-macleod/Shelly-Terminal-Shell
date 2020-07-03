@@ -69,6 +69,10 @@ def command_line():
             elif char in {10, 13}:
                 sys.stdout.write(u"\u001b[1000D")
                 print ()
+                #Save command to txt file
+                with open("command_history.txt", "a+") as f:
+                    f.write(input + "\n")
+
                 os.system(input)
                 input = ""
                 index = 0
