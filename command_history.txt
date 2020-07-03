@@ -1,0 +1,6 @@
+ls -a
+ls -l
+ls -m
+ls -mals
+
+
