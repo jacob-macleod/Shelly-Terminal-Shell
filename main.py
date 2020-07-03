@@ -1,15 +1,31 @@
 # Import modules
 import os, sys, tty, termcolor
 
+#Define 2 variables
+global core_plugin_location
+global user_plugin_location
+
+
+#Reads ShellyRC.txt to find file location of core and user plugin
 def find_plugin_location () :
+    #Set 2 variables as global
+    global core_plugin_location
+    global user_plugin_location
+
     with open("shellyRC.txt") as rc:
         for line in rc:
             #Look for file locations in each line
-            #if 
-            print (line)
+            line_arr = line.split('"')
+            # Hash denotes the file location of the core plugin, ! denotes the file location of the user plugin
+            if '#' in line_arr[0] :
+                core_plugin_location = line_arr[1]
+            elif '!' in line_arr[0] :
+                user_plugin_location = line_arr[1]
+
 
 find_plugin_location()
 
+#Copyies contents of each plugin file to the appropiate placeholder file
 def write_to_placeholder_files (core_file_location, user_file_location) :
     with open(core_file_location) as f:
         with open("core_placeholder.py", "w") as f1:
@@ -21,12 +37,12 @@ def write_to_placeholder_files (core_file_location, user_file_location) :
             for line in f:
                 f1.write(line)
 
-write_to_placeholder_files("my_plugin_core.py", "my_plugin_user.py")
+write_to_placeholder_files(core_plugin_location, user_plugin_location)
 
+#Once the plugin contents are copied to the placeholder files, the appropiate plugins can be imported
 from core_placeholder import core
 from user_placeholder import user
 
-# I can read the placeholder and at the start write code from plugin file to placeholder file
 
 index = 0
 input = ""

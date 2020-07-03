@@ -1,1 +1,2 @@
-plugin "my_plugin_core", "my_plugin_user";
+#Core-Plugin "my_plugin_core.py"
+!User-Plugin "my_plugin_user.py"
