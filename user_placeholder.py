@@ -1,3 +1,5 @@
+import os
+
 #Initialise various variables
 line_arr = []
 count = 0
@@ -7,9 +9,9 @@ string_to_return = ""
 def split(word): 
     return [char for char in word] 
 
-def user (string) :
+def user (string, command_history_file) :
     prediction = ""
-    with open("command_history.txt", "r") as f:
+    with open(command_history_file, "r") as f:
         for line in f:
             #print ("Running on line", line)
             prediction = ""
@@ -40,6 +42,3 @@ def user (string) :
                 break
     #If no match is found, just return the user's text noramally
     return string
-            
-
-user ('ls -a')

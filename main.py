@@ -1,6 +1,8 @@
 # Import modules
 import os, sys, tty, termcolor, termios
 
+command_history_location = os.getcwd() + "/" + "command_history.txt"
+
 #Define 2 variables
 global core_plugin_location
 global user_plugin_location
@@ -73,11 +75,18 @@ def command_line():
                 sys.stdout.write(u"\u001b[1000D")
                 print ()
                 #Save command to txt file
-                with open("command_history.txt", "a+") as f:
+                with open(command_history_location, "a+") as f:
                     f.write(input + "\n")
 
                 termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
                 os.system(input)
+
+                try:
+                    os.chdir(input.split(" ")[1])
+
+                except:
+                    pass
+
                 tty.setraw(sys.stdin)
                 input = ""
                 index = 0
@@ -98,7 +107,7 @@ def command_line():
             # Print current input-string
             sys.stdout.write(u"\u001b[1000D") # Move all the way left
             sys.stdout.write(u"\u001b[2K")    # Clear the line
-            output = core() + user(input)
+            output = core() + user(input, command_history_location)
             sys.stdout.write(output)
             #sys.stdout.write("\u001b[31m" + input + "\u001b[37m" + "string_to_return" + "")
             sys.stdout.write(u"\u001b[1000C") # Move all the way left again
