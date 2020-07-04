@@ -1,5 +1,5 @@
-line_arr = [[]]
-iterator = 0
+line_arr = []
+count = 0
 
 def split(word): 
     return [char for char in word] 
@@ -9,16 +9,24 @@ def user (string) :
     with open("command_history.txt", "r") as f:
         #print (line)
         for line in f:
-            line_arr[iterator].append(split(line))
-            #print (line)
-            #print (line_arr)
+            #print ("Running on line", line)
+            prediction = ""
+            count = 0
+            line_arr = split(line)
+            for i in range (0, len(line_arr)) :
+                #print (i)
+                #print (line_arr[i], end = '')
+                #For the line bieng read, look through it and count up the first letters
+                if count < len(string) :
+                    prediction = prediction + line_arr[i]
+                    #print ("Prediction ", prediction, "Count ", count)
+                    count = count + 1
+            if prediction == string :
+                #print ("Found match on line: ", line)
+                #print ("Line is", line)
+                return line
+                break
+    return string
+            
 
-            for i in range (0, len(string)):
-                prediction += line_arr[i][0]
-            if prediction == string:
-                #print ("Match found")
-                return "match found"
-            else :
-                print ()
-                #return "match not found"
-        print (line_arr)
+user ('l')

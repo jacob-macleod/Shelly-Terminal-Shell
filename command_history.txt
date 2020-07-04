@@ -1,6 +1,9 @@
 ls -a
 ls -l
 ls -m
-ls -mals
-
-
+ls -mal
+l
+l
+l
+gjhsgdhd
+ls hashhddj
