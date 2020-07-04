@@ -1,9 +1,0 @@
-ls -a
-ls -l
-ls -m
-ls -mal
-l
-l
-l
-gjhsgdhd
-ls hashhddj
