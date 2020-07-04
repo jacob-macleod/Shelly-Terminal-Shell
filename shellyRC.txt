@@ -1,2 +1,2 @@
-#Core-Plugin "my_plugin_core.py"
-!User-Plugin "my_plugin_user.py"
+#Core-Plugin "default_plugin_core.py"
+!User-Plugin "default_plugin_user.py"

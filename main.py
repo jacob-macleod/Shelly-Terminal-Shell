@@ -1,9 +1,12 @@
 # Import modules
-import os, sys, tty, termcolor
+import os, sys, tty, termcolor, termios
 
 #Define 2 variables
 global core_plugin_location
 global user_plugin_location
+
+fd = sys.stdin.fileno()
+old_settings = termios.tcgetattr(fd)
 
 
 #Reads ShellyRC.txt to find file location of core and user plugin
@@ -73,7 +76,9 @@ def command_line():
                 with open("command_history.txt", "a+") as f:
                     f.write(input + "\n")
 
+                termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
                 os.system(input)
+                tty.setraw(sys.stdin)
                 input = ""
                 index = 0
 
