@@ -81,11 +81,16 @@ def command_line():
                 termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
                 os.system(input)
 
+                # Changing directories:
                 try:
                     os.chdir(input.split(" ")[1])
 
                 except:
                     pass
+
+                # The 'exit' command:
+                if input == "exit" or input == "exit " or input == " exit":
+                    sys.exit()
 
                 tty.setraw(sys.stdin)
                 input = ""
