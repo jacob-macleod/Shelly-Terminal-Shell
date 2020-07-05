@@ -112,7 +112,7 @@ def command_line():
             # Print current input-string
             sys.stdout.write(u"\u001b[1000D") # Move all the way left
             sys.stdout.write(u"\u001b[2K")    # Clear the line
-            output = core(os.getcwd()) + user(input, command_history_location)
+            output = core() + user(input, command_history_location)
             sys.stdout.write(output)
             #sys.stdout.write("\u001b[31m" + input + "\u001b[37m" + "string_to_return" + "")
             sys.stdout.write(u"\u001b[1000C") # Move all the way left again
