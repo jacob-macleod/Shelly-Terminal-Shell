@@ -1,0 +1,8 @@
+ls -a
+cd ..
+ cd ..
+cd ..
+cd ..
+cd ..
+cd ..
+cd ..
