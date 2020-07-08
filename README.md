@@ -1,5 +1,5 @@
-# Shelly-Terminal-Shell
-(Shelly is a placeholder name till I think of something better!)<br>
+# Shelly Terminal Shell
+Version 1
 ## In progress
 
 ## Contributors welcome - just wait a few days and I'll fix a few things and add a few new features!
