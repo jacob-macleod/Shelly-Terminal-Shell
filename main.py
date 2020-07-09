@@ -1,5 +1,5 @@
 # Import modules
-import os, sys, tty, termcolor, termios
+import os, sys, tty, termios
 
 command_history_location = os.getcwd() + "/" + "command_history.txt"
 
