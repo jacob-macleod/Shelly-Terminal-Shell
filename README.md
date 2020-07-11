@@ -10,7 +10,7 @@ To install Shelly, you can clone the repository: `git clone https://github.com/j
 
 ## Set as default editor:
 There are many ways to set Shelly as your default editor. One way is to add the following line in your .bashrc file, which should be located in your home directory: `python3 <path_to_shelly_installation>/main.py`. 
-<br>Currently, Shelly only supports being run from the same folder where it is installed, so the easiest way to solve this is to move all your Shelly config files to your home directory, where your .bashrc file is located. This can be done by running `mv Shelly-Terminal-Shell/ $HOME` when in your home directory.
+<br>Currently, Shelly only supports being run from the same folder where it is installed, so the easiest way to solve this is to move all your Shelly config files to your home directory, where your .bashrc file is located. This can be done by running `mv Shelly-Terminal-Shell/* $HOME` when in your home directory.
 <br><br>However, this may not be ideal, since you may not want lots of files in your home directory. Therefore, you can keep Shelly in it's own folder by doing the following:
 <br>Replace line 7 in main.py with `command_history_location = <path_to_shelly_installation> + "/command_history.txt"`
 <br>Replace line 24 in main.py with `with open("<path_to_shelly_installation>/shellyRC.txt") as rc:`
