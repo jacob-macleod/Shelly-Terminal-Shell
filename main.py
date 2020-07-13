@@ -3,12 +3,14 @@ import os
 import sys
 import tty
 import termios
+import subprocess   
 
 command_history_location = os.getcwd() + "/" + "command_history.txt"
 
-# Define 2 variables
+# Define 3 variables
 global core_plugin_location
 global user_plugin_location
+global up_arrow_count
 
 fd = sys.stdin.fileno()
 old_settings = termios.tcgetattr(fd)
@@ -19,6 +21,7 @@ def find_plugin_location():
     # Set 2 variables as global
     global core_plugin_location
     global user_plugin_location
+
 
     with open("shellyRC.txt") as rc:
         for line in rc:
@@ -62,6 +65,11 @@ input = ""
 
 
 def command_line():
+    #Define up arrow count as a global varible then set a value to it
+    global up_arrow_count
+    up_arrow_count = 0
+
+
     tty.setraw(sys.stdin)
     while True:
         # Define data-model for an input-string with a cursor
@@ -84,7 +92,9 @@ def command_line():
                 print()
                 # Save command to txt file
                 with open(command_history_location, "a+") as f:
-                    f.write(input + "\n")
+                    f.write("\n" + input)
+                
+                up_arrow_count = 0
 
                 termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
                 os.system(input)
@@ -110,11 +120,20 @@ def command_line():
                         index = max(0, index - 1)
                     elif next2 == 67:  # Right
                         index = min(len(input), index + 1)
+                    #Elif up arrow is pressed
+                    elif next2 == 65:
+                        with open('command_history.txt', 'r') as f:
+                            lines = f.read().splitlines()
+                            up_arrow_count += 1
+                            if up_arrow_count < len(lines) + 1 :
+                                input = lines[-up_arrow_count]
+
 
             # Elif char == backspace
             elif char == 127:
                 input = input[:index-1] + input[index:]
                 index -= 1
+
 
             # Print current input-string
             sys.stdout.write(u"\u001b[1000D")  # Move all the way left
