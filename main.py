@@ -97,17 +97,21 @@ def command_line():
                 up_arrow_count = 0
 
                 termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
-                os.system(input)
+                if input != "" and input != " " and input != "  " and input != "   ":
+                    if input.split()[0] == "ls":
+                        input += " --color"
 
-                # Changing directories:
-                try:
-                    os.chdir(input.split(" ")[1])
-                except:
-                    pass
+                    os.system(input)
 
-                # The 'exit' command:
-                if input == "exit" or input == "exit " or input == " exit":
-                    sys.exit()
+                    # Changing directories:
+                    try:
+                        os.chdir(input.split(" ")[1])
+                    except:
+                        pass
+
+                    # The 'exit' command:
+                    if input == "exit" or input == "exit " or input == " exit":
+                        sys.exit()
 
                 tty.setraw(sys.stdin)
                 input = ""
