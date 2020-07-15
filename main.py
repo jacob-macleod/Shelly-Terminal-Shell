@@ -10,7 +10,7 @@ command_history_location = os.getcwd() + "/" + "command_history.txt"
 # Define 3 variables
 global core_plugin_location
 global user_plugin_location
-global up_arrow_count
+global arrow_count
 
 fd = sys.stdin.fileno()
 old_settings = termios.tcgetattr(fd)
@@ -66,8 +66,8 @@ input = ""
 
 def command_line():
     #Define up arrow count as a global varible then set a value to it
-    global up_arrow_count
-    up_arrow_count = 0
+    global arrow_count
+    arrow_count = 0
 
 
     tty.setraw(sys.stdin)
@@ -94,7 +94,7 @@ def command_line():
                 with open(command_history_location, "a+") as f:
                     f.write("\n" + input)
                 
-                up_arrow_count = 0
+                arrow_count = 0
 
                 termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
                 os.system(input)
@@ -124,9 +124,20 @@ def command_line():
                     elif next2 == 65:
                         with open('command_history.txt', 'r') as f:
                             lines = f.read().splitlines()
-                            up_arrow_count += 1
-                            if up_arrow_count < len(lines) + 1 :
-                                input = lines[-up_arrow_count]
+                            arrow_count += 1
+                            if arrow_count < len(lines) + 1 :
+                                input = lines[-arrow_count]
+                            else :
+                                arrow_count -=1
+                    #Elif down arrow is being pressed
+                    elif next2 == 66:
+                        with open('command_history.txt', 'r') as f:
+                            arrow_count -= 1
+                            lines = f.read().splitlines()
+                            if arrow_count > 0 :
+                                input = lines[- arrow_count]
+                            else :
+                                arrow_count += 1
 
 
             # Elif char == backspace
