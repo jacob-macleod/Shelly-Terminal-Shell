@@ -21,6 +21,15 @@ alias_commands = []
 fd = sys.stdin.fileno()
 old_settings = termios.tcgetattr(fd)
 
+#Displays a cursor
+def display_cursor ():
+    input_arr = list(input)
+    letter_to_be_replaced = input_arr[index -1]
+    input_arr[index - 1] = "Q"
+    input_arr[index] = letter_to_be_replaced
+    input = ""
+    for element in range (0, len(input_arr)):
+        input += input_arr[element]
 
 # Splits string by word
 def split(string):
@@ -181,6 +190,16 @@ def command_line():
                 if next1 == 91:
                     if next2 == 68:  # Left
                         index = max(0, index - 1)
+                        """
+                        input_arr = list(input) 
+                        letter_to_be_replaced = input_arr[index]
+                        input_arr[index - 1] = "\u001b[47m" + input_arr[index - 1]
+                        input_arr[index] = "\u001b[34m" + letter_to_be_replaced + "\u001b[0m"
+                        input = ""
+                        for element in range (0, len(input_arr)):
+                            input += input_arr[element]
+                        """
+
                     elif next2 == 67:  # Right
                         index = min(len(input), index + 1)
                     #Elif up arrow is pressed
@@ -211,15 +230,21 @@ def command_line():
 
             # Print current input-string
             sys.stdout.write(u"\u001b[1000D")  # Move all the way left
+            #sys.stdout.write(u"\u001b[5C") #Move 5 spaces to the left
             sys.stdout.write(u"\u001b[2K")    # Clear the line
-            output = core() + user(input, command_history_location)
-            sys.stdout.write(output)
+            sys.stdout.write(core() + user(input, command_history_location))
+            #sys.stdout.write(output)
             # sys.stdout.write("\u001b[31m" + input + "\u001b[37m" + "string_to_return" + "")
-            sys.stdout.write(u"\u001b[1000C")  # Move all the way left again
-
+            sys.stdout.write(u"\u001b[1000D")  # Move all the way left again
+            try :
+                core_length = len(core()) - 19
+            except :
+                core_length = len(core())
+            #core_length.type()
+            sys.stdout.write ("\033[" + str(core_length) + "C")
             if index > 0:
                 sys.stdout.write(u"\u001b[" + str(index) + "C") 
-            # Move cursor too index
+            # Move cursor to index
             sys.stdout.flush()
 
 command_line()
