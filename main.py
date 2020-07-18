@@ -7,13 +7,35 @@ import subprocess
 
 command_history_location = os.getcwd() + "/" + "command_history.txt"
 
-# Define 3 variables
+# Define variables
 global core_plugin_location
 global user_plugin_location
 global arrow_count
+global alias_names
+global alias_commands
+
+#Assign values 
+alias_names = []
+alias_commands = []
 
 fd = sys.stdin.fileno()
 old_settings = termios.tcgetattr(fd)
+
+
+# Splits string by word
+def split(string):
+    word = ""
+    string_arr = []
+    for char in string:
+        if char == ' ':
+           string_arr.append(word)
+           string_arr.append(char)
+           word = ""
+        else:
+            word += char
+    string_arr.append(word)
+    return (string_arr)
+
 
 
 # Reads ShellyRC.txt to find file location of core and user plugin
@@ -21,6 +43,8 @@ def find_plugin_location():
     # Set 2 variables as global
     global core_plugin_location
     global user_plugin_location
+    global alias_names
+    global alias_commands
 
 
     with open("shellyRC.txt") as rc:
@@ -29,10 +53,15 @@ def find_plugin_location():
             line_arr = line.split('"')
             # Hash denotes the file location of the core plugin
             #  ! denotes the file location of the user plugin
+            # % Denotes the alias name and command
             if '#' in line_arr[0]:
                 core_plugin_location = line_arr[1]
             elif '!' in line_arr[0]:
                 user_plugin_location = line_arr[1]
+            elif '%' in line_arr[0]:
+                alias_names.append(line_arr[1])
+                alias_commands.append(line_arr[3])
+
 
 
 find_plugin_location()
@@ -68,6 +97,8 @@ def command_line():
     #Define up arrow count as a global varible then set a value to it
     global arrow_count
     arrow_count = 0
+    
+    match_found = False
 
 
     tty.setraw(sys.stdin)
@@ -101,7 +132,35 @@ def command_line():
                     if input.split()[0] == "ls":
                         input += " --color"
 
-                    os.system(input)
+                    for i in range (0, len(alias_names)):
+                        # If word user types can be substituted for an alias_phrase
+                        if alias_names[i] in input :
+                            # Calls split function to split input by word
+                            input_arr = split(input)
+                            match_found = True
+
+                            # Cycles through input_arr and looks for a phrase to subsititute with an alias command - .deb turns into sudo dpkg
+                            for _ in range (0, len(input_arr)):
+                                if input_arr[_] == alias_names[i]:
+                                    # Substitute alias name with alias command
+                                    input_arr[_] = alias_commands[i]
+
+                                    # Turn input_arr into a string
+                                    input = ""
+                                    for element in range(0, len(input_arr)):
+                                        input += input_arr[element]
+
+                                    # Check if the command is ls - if so, color it
+                                    if input.split()[0] == "ls":
+                                        input += " --color"
+
+                                    # Execute the whole command
+                                    os.system(input)
+
+                    if match_found == False :
+                        os.system(input)
+
+                    match_found = False
 
                     # Changing directories:
                     try:

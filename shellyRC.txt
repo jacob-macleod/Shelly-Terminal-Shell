@@ -1,2 +1,5 @@
 #Core-Plugin "default_plugin_core.py"
 !User-Plugin "default_plugin_user.py"
+%".deb"="sudo dpkg"
+%"tarball"="sudo tar -xfvz"
+%"list"="ls"
