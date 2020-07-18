@@ -20,6 +20,9 @@ There are many ways to set Shelly as your default editor. One way is to add the 
 <br>You will need to make sure you have the correct indentation on these lines!
 <br>Replace the file paths to the pluginns in shellyRC.txt with the absolute file paths, and please open an issue if there are any problems with this!
 
+## Adding aliases
+Shelly has support for aliases! To use this, add at least one line in shellyRC.txt containing `%"alias_name"="alias_command"`. Please open an issue if there are any problems!
+
 ## Contribution:
 We would love any contributors! The issues labeled 'good first issue' are good things to contribute towards.
 
