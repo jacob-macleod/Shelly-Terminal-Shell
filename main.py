@@ -125,8 +125,10 @@ def command_line():
 
             #Elif char == tab
             elif char == 9:
-                #Ececute command suggested by user function
+                # Make input = suggested by user function
                 input = user(input, command_history_location, False)
+                # Move cursor accordingly
+                index = len(input)
 
             elif 32 <= char <= 126:
                 # Store letter in index

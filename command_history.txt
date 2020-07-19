@@ -1,3 +1,4 @@
 ls
 ls -a
 ls -al
+ls -a
