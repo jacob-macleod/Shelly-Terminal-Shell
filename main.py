@@ -237,7 +237,7 @@ def command_line():
             # sys.stdout.write("\u001b[31m" + input + "\u001b[37m" + "string_to_return" + "")
             sys.stdout.write(u"\u001b[1000D")  # Move all the way left again
             try :
-                core_length = len(core()) - 19
+                core_length = len(core()) - 18
             except :
                 core_length = len(core())
             #core_length.type()
