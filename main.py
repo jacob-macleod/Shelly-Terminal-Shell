@@ -14,6 +14,7 @@ global user_plugin_location
 global arrow_count
 global alias_names
 global alias_commands
+global cursor_offset
 
 #Assign values 
 alias_names = []
@@ -21,16 +22,6 @@ alias_commands = []
 
 fd = sys.stdin.fileno()
 old_settings = termios.tcgetattr(fd)
-
-#Displays a cursor
-def display_cursor ():
-    input_arr = list(input)
-    letter_to_be_replaced = input_arr[index -1]
-    input_arr[index - 1] = "Q"
-    input_arr[index] = letter_to_be_replaced
-    input = ""
-    for element in range (0, len(input_arr)):
-        input += input_arr[element]
 
 # Splits string by word
 def split(string):
@@ -55,6 +46,7 @@ def find_plugin_location():
     global user_plugin_location
     global alias_names
     global alias_commands
+    global cursor_offset
 
 
     with open("shellyRC.txt") as rc:
@@ -71,6 +63,8 @@ def find_plugin_location():
             elif '%' in line_arr[0]:
                 alias_names.append(line_arr[1])
                 alias_commands.append(line_arr[3])
+            elif '-' in line_arr[0] :
+                cursor_offset = line_arr[3]
 
 
 
@@ -237,7 +231,7 @@ def command_line():
             # sys.stdout.write("\u001b[31m" + input + "\u001b[37m" + "string_to_return" + "")
             sys.stdout.write(u"\u001b[1000D")  # Move all the way left again
             try :
-                core_length = len(core()) - 18
+                core_length = len(core()) - int(cursor_offset)
             except :
                 core_length = len(core())
             #core_length.type()

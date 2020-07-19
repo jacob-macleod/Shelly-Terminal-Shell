@@ -1,5 +1,10 @@
 #Core-Plugin "default_plugin_core.py"
 !User-Plugin "default_plugin_user.py"
+
 %".deb"="sudo dpkg"
 %"tarball"="sudo tar -xfvz"
 %"list"="ls"
+
+"Defines cursor offset - a possible offset is '18' for the
+"Default Plugin and '33' for the minimalist plugin
+-"Cusor Offset"="18"
