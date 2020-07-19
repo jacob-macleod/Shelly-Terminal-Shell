@@ -3,7 +3,8 @@ import os
 import sys
 import tty
 import termios
-import subprocess   
+import subprocess  
+import re 
 
 command_history_location = os.getcwd() + "/" + "command_history.txt"
 
@@ -122,6 +123,11 @@ def command_line():
             if char == 3:
                 return
 
+            #Elif char == tab
+            elif char == 9:
+                #Ececute command suggested by user function
+                input = user(input, command_history_location, False)
+
             elif 32 <= char <= 126:
                 # Store letter in index
                 input = input[:index] + chr(char) + input[index:]
@@ -188,19 +194,11 @@ def command_line():
             elif char == 27:
                 next1, next2 = ord(sys.stdin.read(1)), ord(sys.stdin.read(1))
                 if next1 == 91:
-                    if next2 == 68:  # Left
+                    # Left arrow
+                    if next2 == 68: 
                         index = max(0, index - 1)
-                        """
-                        input_arr = list(input) 
-                        letter_to_be_replaced = input_arr[index]
-                        input_arr[index - 1] = "\u001b[47m" + input_arr[index - 1]
-                        input_arr[index] = "\u001b[34m" + letter_to_be_replaced + "\u001b[0m"
-                        input = ""
-                        for element in range (0, len(input_arr)):
-                            input += input_arr[element]
-                        """
-
-                    elif next2 == 67:  # Right
+                    #Right arrow
+                    elif next2 == 67:  
                         index = min(len(input), index + 1)
                     #Elif up arrow is pressed
                     elif next2 == 65:
@@ -210,7 +208,7 @@ def command_line():
                             if arrow_count < len(lines) + 1 :
                                 input = lines[-arrow_count]
                             else :
-                                arrow_count -=1
+                                arrow_count -= 1
                     #Elif down arrow is being pressed
                     elif next2 == 66:
                         with open('command_history.txt', 'r') as f:
@@ -232,7 +230,7 @@ def command_line():
             sys.stdout.write(u"\u001b[1000D")  # Move all the way left
             #sys.stdout.write(u"\u001b[5C") #Move 5 spaces to the left
             sys.stdout.write(u"\u001b[2K")    # Clear the line
-            sys.stdout.write(core() + user(input, command_history_location))
+            sys.stdout.write(core() + user(input, command_history_location, True))
             #sys.stdout.write(output)
             # sys.stdout.write("\u001b[31m" + input + "\u001b[37m" + "string_to_return" + "")
             sys.stdout.write(u"\u001b[1000D")  # Move all the way left again
