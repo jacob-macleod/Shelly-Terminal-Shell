@@ -1,5 +1,5 @@
 # Shelly Terminal Shell
-Version 1
+Version 2
 
 ## Shelly is a terminal shell written in python
 ![Sorry, this image cannot be displayed](https://github.com/jacob-macleod/Shelly-Terminal-Shell/blob/master/Screenshot%202020-07-08%20at%205.53.05%20PM.png "Shelly with the default theme")
