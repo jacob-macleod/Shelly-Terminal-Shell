@@ -7,4 +7,4 @@
 
 "Defines cursor offset - a possible offset is '18' for the
 "Default Plugin and '33' for the minimalist plugin
--"Cusor Offset"="18"
+-"Cusor Offset"="23"
